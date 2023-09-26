@@ -1,7 +1,7 @@
 import { CorsOptions } from "cors";
-import dotenv from "dotenv";
-dotenv.config();
+import dotEnvConfig from "./dotenvConfig";
 
+dotEnvConfig();
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {

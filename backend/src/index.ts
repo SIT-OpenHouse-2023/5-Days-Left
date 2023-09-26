@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
-import corsConfig from "./cors/corsConfig";
+import corsConfig from "./configs/corsConfig";
 import Routes from "./routes";
 import cookieParser from "cookie-parser";
 
