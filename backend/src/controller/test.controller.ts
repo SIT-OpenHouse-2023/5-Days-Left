@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import Test from "../model/test.model";
-import TestRepository from "../repository/test.repository";
+import TestService from "../services/test.service";
 
 export default class TestController {
   async helloWorld(req: Request, res: Response) {
     try {
-      const test = await TestRepository.helloWorld();
+      const test = await TestService.helloWorld();
       res.status(200).json(test);
     } catch (error) {
       console.error(error);
@@ -18,7 +18,7 @@ export default class TestController {
       const newTest: Test = {
         msg: req.body.msg || Math.random().toString(),
       };
-      const savedTest: Test = await TestRepository.save(newTest);
+      const savedTest: Test = await TestService.save(newTest);
       res.status(201).json(savedTest);
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ export default class TestController {
       const searchParams = {
         msg: req.query.msg as string | undefined,
       };
-      const tests: Test[] = await TestRepository.retrieveAll(searchParams);
+      const tests: Test[] = await TestService.retrieveAll(searchParams);
       res.status(200).json(tests);
     } catch (error) {
       console.error(error);
@@ -42,7 +42,7 @@ export default class TestController {
   async retrieveTestById(req: Request, res: Response) {
     try {
       const TestId: number = parseInt(req.params.id);
-      const Test: Test | undefined = await TestRepository.retrieveById(TestId);
+      const Test: Test | undefined = await TestService.retrieveById(TestId);
       if (!Test) res.status(404).json({ error: "Test not found" });
       else res.status(200).json(Test);
     } catch (error) {
@@ -54,14 +54,14 @@ export default class TestController {
   async updateTest(req: Request, res: Response) {
     try {
       const TestId: number = parseInt(req.params.id);
-      const Test: Test | undefined = await TestRepository.retrieveById(TestId);
+      const Test: Test | undefined = await TestService.retrieveById(TestId);
       if (!Test) res.status(404).json({ error: "Test not found" });
       else {
         const updatedTest: Test = {
           id: TestId,
           msg: req.body.msg || Test.msg,
         };
-        await TestRepository.update(updatedTest);
+        await TestService.update(updatedTest);
         res.status(200).json(updatedTest);
       }
     } catch (error) {
@@ -72,10 +72,10 @@ export default class TestController {
   async deleteTest(req: Request, res: Response) {
     try {
       const TestId: number = parseInt(req.params.id);
-      const Test: Test | undefined = await TestRepository.retrieveById(TestId);
+      const Test: Test | undefined = await TestService.retrieveById(TestId);
       if (!Test) res.status(404).json({ error: "Test not found" });
       else {
-        await TestRepository.delete(TestId);
+        await TestService.delete(TestId);
         res.status(200).json({ message: "Test deleted successfully" });
       }
     } catch (error) {
@@ -86,7 +86,7 @@ export default class TestController {
 
   async deleteAllTests(req: Request, res: Response) {
     try {
-      await TestRepository.deleteAll();
+      await TestService.deleteAll();
       res.status(200).json({ message: "All tests deleted successfully" });
     } catch (error) {
       console.error(error);

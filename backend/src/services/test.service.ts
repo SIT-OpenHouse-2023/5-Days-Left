@@ -1,7 +1,7 @@
 import connection from "../database";
 import Test from "../model/test.model";
 
-interface ITestRepository {
+interface ITestService {
   helloWorld(): Promise<string>;
   save(Test: Test): Promise<Test>;
   retrieveAll(searchParams: { id: number; msg: string }): Promise<Test[]>;
@@ -11,7 +11,7 @@ interface ITestRepository {
   deleteAll(): Promise<number>;
 }
 
-class TestRepository implements ITestRepository {
+class TestService implements ITestService {
   helloWorld(): Promise<string> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -102,4 +102,4 @@ class TestRepository implements ITestRepository {
   }
 }
 
-export default new TestRepository();
+export default new TestService();
