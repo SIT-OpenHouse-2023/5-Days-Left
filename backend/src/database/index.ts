@@ -1,6 +1,9 @@
 import mysql from "mysql2";
+import dotenv from "dotenv";
 
-const connection = mysql.createConnection({
+dotenv.config();
+
+const connection: any = mysql.createConnection({
   host: process.env.DB_HOST || "",
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 13306,
   user: process.env.DB_USER || "",

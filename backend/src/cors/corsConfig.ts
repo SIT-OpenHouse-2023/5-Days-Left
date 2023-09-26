@@ -1,5 +1,4 @@
-import { Request, Response, NextFunction } from "express";
-import cors, { CorsOptions } from "cors";
+import { CorsOptions } from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -24,16 +23,6 @@ const corsOptions: CorsOptions = {
   credentials: true,
 };
 
-export default function corsMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
-  cors(corsOptions)(req, res, () => {
-    res.setHeader("Access-Control-Allow-Origin", FRONTEND_URL);
-
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-
-    next();
-  });
+export default function corsConfig() {
+  return corsOptions;
 }

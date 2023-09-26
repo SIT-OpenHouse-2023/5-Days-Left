@@ -1,8 +1,10 @@
-import express, { Router } from "express";
-import testController from "../controller/testController/test";
+import { Application } from "express";
+import testRoutes from "./test.routes";
 
-const router: Router = express.Router();
+class Routes {
+  constructor(app: Application) {
+    app.use("/test", testRoutes);
+  }
+}
 
-router.use("/", testController);
-
-export = router;
+export default Routes;
