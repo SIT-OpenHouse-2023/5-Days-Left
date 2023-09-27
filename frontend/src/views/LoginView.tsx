@@ -1,38 +1,35 @@
-import { Button, Container } from "@mui/material";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import jwt_decode from "jwt-decode";
 import GoogleUser from "../types/googleUser";
+import Container from "../components/Container";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 export default function LoginView() {
     const [user, setUser] = useState<GoogleUser | null>(null);
-    const handleCredentialResponse = (response: any) => {
-        if (response.credential) {
-            const credential = response.credential;
-            console.log(jwt_decode(credential));
-            setUser(jwt_decode(credential));
-        }
-    };
-    const googleButton: RefObject<HTMLButtonElement> = useRef(null);
-    useEffect(() => {
-        google.accounts.id.initialize({
-            client_id:
-                "885320998423-n5n42iplf2lmnt7059v7j588dtu946rg.apps.googleusercontent.com",
-            callback: handleCredentialResponse,
-        });
 
-        google.accounts.id.renderButton(googleButton.current, {
-            theme: "outline",
-            size: "large",
-            hl: "en",
-        });
-    }, []);
     return (
-        <Container maxWidth="sm" className="min-h-screen bg-blue-100">
-            <h1>Login</h1>
-
+        <Container>
+            <h1 className="text-3xl ">Login</h1>
+            <p className="text-white">press the button</p>
             <div className="flex flex-col gap-2 items-center">
                 {!user ? (
-                    <Button ref={googleButton} />
+                    <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                            localStorage.setItem(
+                                "token",
+                                credentialResponse.credential!
+                            );
+                            setUser(jwt_decode(credentialResponse.credential!));
+                        }}
+                        onError={() => {
+                            console.log("Login Failed");
+                        }}
+                        useOneTap
+                        auto_select
+                        shape="pill"
+                        width={256}
+                        locale="en"
+                    />
                 ) : (
                     <>
                         <div>
@@ -42,15 +39,14 @@ export default function LoginView() {
                         </div>
 
                         {/* logout */}
-                        <Button
+                        <button
                             onClick={() => {
-                                // google.accounts.id.disableAutoSelect();
-                                // google.accounts.id.revoke();
+                                googleLogout();
                                 setUser(null);
                             }}
                         >
                             Logout
-                        </Button>
+                        </button>
                     </>
                 )}
             </div>

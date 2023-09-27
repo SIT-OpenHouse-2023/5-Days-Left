@@ -6,6 +6,7 @@ import LoginView from "./views/LoginView";
 import HomeView from "./views/HomeView";
 import ActivityView from "./views/ActivityView";
 import RegisterView from "./views/RegisterView";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -35,7 +36,9 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+    <GoogleOAuthProvider clientId="885320998423-n5n42iplf2lmnt7059v7j588dtu946rg.apps.googleusercontent.com">
+        <React.StrictMode>
+            <RouterProvider router={router} />
+        </React.StrictMode>
+    </GoogleOAuthProvider>
 );
