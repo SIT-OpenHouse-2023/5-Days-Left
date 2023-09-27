@@ -22,16 +22,16 @@ const router = createBrowserRouter([
         element: <LoginView />,
     },
     {
-        path: "*",
-        element: <div>404</div>,
-    },
-    {
         path: "/activity",
         element: <ActivityView />,
     },
     {
         path: "/register",
         element: <RegisterView />,
+    },
+    {
+        path: "*",
+        element: <div>404</div>,
     },
 ]);
 
