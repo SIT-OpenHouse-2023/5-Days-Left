@@ -1,5 +1,5 @@
 function HomeView() {
-    return <></>;
+  return <>Hi</>;
 }
 
 export default HomeView;

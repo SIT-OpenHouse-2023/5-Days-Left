@@ -1,9 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import HomeView from './views/HomeView';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import HomeView from "./views/HomeView";
 
-test('renders learn react link', () => {
+test("renders learn react link", () => {
   render(<HomeView />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const element = screen.getByText("Hi");
+  expect(element).toBeInTheDocument();
 });
