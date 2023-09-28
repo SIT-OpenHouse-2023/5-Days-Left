@@ -12,7 +12,6 @@ export default class TestController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
-
   async createTest(req: Request, res: Response) {
     try {
       const newTest: Test = {
@@ -25,7 +24,6 @@ export default class TestController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
-
   async retrieveAllTests(req: Request, res: Response) {
     try {
       const searchParams = {
@@ -38,7 +36,6 @@ export default class TestController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
-
   async retrieveTestById(req: Request, res: Response) {
     try {
       const TestId: number = parseInt(req.params.id);
@@ -50,7 +47,6 @@ export default class TestController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
-
   async updateTest(req: Request, res: Response) {
     try {
       const TestId: number = parseInt(req.params.id);
@@ -83,7 +79,6 @@ export default class TestController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
-
   async deleteAllTests(req: Request, res: Response) {
     try {
       await TestService.deleteAll();
