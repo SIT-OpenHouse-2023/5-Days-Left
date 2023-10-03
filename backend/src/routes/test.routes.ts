@@ -15,8 +15,8 @@ class TestRoutes {
     this.router.get("/retrieve/all", this.controller.retrieveAllTests);
     this.router.get("/retrieve/:id", this.controller.retrieveTestById);
     this.router.put("/update/:id", this.controller.updateTest);
-    this.router.delete("/delete/:id", this.controller.deleteTest);
     this.router.delete("/delete/all", this.controller.deleteAllTests);
+    this.router.delete("/delete/:id", this.controller.deleteTest);
   }
 }
 
