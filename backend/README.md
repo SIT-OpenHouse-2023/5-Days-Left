@@ -6,7 +6,7 @@
 
 # How to run this server
 Using `Yarn` to install dependencies <br>
-`Yarn dev` to start running the server
+`Yarn start` to start running the server
 
 # API URLs
     Test endpoints
