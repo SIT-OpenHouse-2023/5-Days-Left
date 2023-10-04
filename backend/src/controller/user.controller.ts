@@ -5,9 +5,10 @@ import UserService from "../services/user.service";
 export default class UserController {
   async createUser(req: Request, res: Response) {
     try {
+      const user: string[] = req.body.name.split(" ");
       const newUser: User = {
-        username: req.body.username,
-        password: req.body.password,
+        name: user[0],
+        surname: user[1],
       };
       const checkUser: User[] | undefined = await UserService.retrieve(newUser);
       if (checkUser) {
@@ -26,14 +27,12 @@ export default class UserController {
     try {
       const searchParams: User = {
         id: req.query.id as number | undefined,
-        username: req.query.username as string | undefined,
         name_prefix: req.query.name_prefix as string | undefined,
         name: req.query.name as string | undefined,
         surname: req.query.surname as string | undefined,
-        nickname: req.query.nickname as string | undefined,
-        age: req.query.age as number | undefined,
         school: req.query.school as string | undefined,
         province: req.query.province as string | undefined,
+        allergy: req.query.allergy as string | undefined,
       };
       const users: User[] = await UserService.retrieve(searchParams);
       res.status(200).json(users);
@@ -63,14 +62,12 @@ export default class UserController {
       else {
         const updatedUser: User = {
           id: userId,
-          username: req.body.username,
           name_prefix: req.body.name_prefix,
           name: req.body.name,
           surname: req.body.surname,
-          nickname: req.body.nickname,
-          age: req.body.age,
           school: req.body.school,
           province: req.body.province,
+          allergy: req.body.allergy,
         };
         await UserService.updateUser(updatedUser);
         res.status(200).json(updatedUser);

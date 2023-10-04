@@ -3,26 +3,22 @@ import User from "../model/user.model";
 
 interface IUserSearchParams {
   id?: number;
-  username?: string;
   name_prefix?: string;
   name?: string;
   surname?: string;
-  nickname?: string;
-  age?: number;
   school?: string;
   province?: string;
+  allergy?: string;
 }
 
 interface IUserUpdateParams {
   id?: number;
-  username?: string;
   name_prefix?: string;
   name?: string;
   surname?: string;
-  nickname?: string;
-  age?: number;
   school?: string;
   province?: string;
+  allergy?: string;
 }
 
 interface IUserService {
@@ -37,8 +33,8 @@ class UserService implements IUserService {
   createUser(user: User): Promise<User> {
     return new Promise((resolve, reject) => {
       connection.query(
-        "INSERT INTO user (username, password) VALUES(?, ?)",
-        [user.username, user.password],
+        "INSERT INTO user (name, surname) VALUES(?, ?)",
+        [user.name, user.surname],
         (err: any, res: { insertId: number }) => {
           if (err) reject(err);
           else
@@ -59,11 +55,6 @@ class UserService implements IUserService {
       values.push(searchParams.id);
     }
 
-    if (searchParams.username) {
-      conditions.push("LOWER(username) LIKE ?");
-      values.push(`%${searchParams.username.toLowerCase()}%`);
-    }
-
     if (searchParams.name_prefix) {
       conditions.push("LOWER(name_prefix) LIKE ?");
       values.push(`%${searchParams.name_prefix.toLowerCase()}%`);
@@ -79,16 +70,6 @@ class UserService implements IUserService {
       values.push(`%${searchParams.surname.toLowerCase()}%`);
     }
 
-    if (searchParams.nickname) {
-      conditions.push("LOWER(nickname) LIKE ?");
-      values.push(`%${searchParams.nickname.toLowerCase()}%`);
-    }
-
-    if (searchParams.age !== undefined) {
-      conditions.push("age = ?");
-      values.push(searchParams.age);
-    }
-
     if (searchParams.school) {
       conditions.push("LOWER(school) LIKE ?");
       values.push(`%${searchParams.school.toLowerCase()}%`);
@@ -97,6 +78,11 @@ class UserService implements IUserService {
     if (searchParams.province) {
       conditions.push("LOWER(province) LIKE ?");
       values.push(`%${searchParams.province.toLowerCase()}%`);
+    }
+
+    if (searchParams.allergy) {
+      conditions.push("LOWER(allergy) LIKE ?");
+      values.push(`%${searchParams.allergy.toLowerCase()}%`);
     }
 
     let query = "SELECT * FROM user";
@@ -129,19 +115,24 @@ class UserService implements IUserService {
     let query: string = "UPDATE user SET ";
     let columns: string[] = [];
 
-    if (updateParams?.username)
-      columns.push(`username = '${updateParams.username}'`);
-    if (updateParams?.name_prefix)
+    if (updateParams?.name_prefix) {
       columns.push(`name_prefix = '${updateParams.name_prefix}'`);
-    if (updateParams?.name) columns.push(`name = '${updateParams.name}'`);
-    if (updateParams?.surname)
+    }
+    if (updateParams?.name) {
+      columns.push(`name = '${updateParams.name}'`);
+    }
+    if (updateParams?.surname) {
       columns.push(`surname = '${updateParams.surname}'`);
-    if (updateParams?.nickname)
-      columns.push(`nickname = '${updateParams.nickname}'`);
-    if (updateParams?.age) columns.push(`age = ${updateParams.age}`);
-    if (updateParams?.school) columns.push(`school = '${updateParams.school}'`);
-    if (updateParams?.province)
+    }
+    if (updateParams?.school) {
+      columns.push(`school = '${updateParams.school}'`);
+    }
+    if (updateParams?.province) {
       columns.push(`province = '${updateParams.province}'`);
+    }
+    if (updateParams?.allergy) {
+      columns.push(`allergy = '${updateParams.allergy}'`);
+    }
 
     if (columns.length === 0) {
       return Promise.resolve(0);
