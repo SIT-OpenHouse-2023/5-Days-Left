@@ -11,7 +11,7 @@ export default class UserController {
         surname: user[1],
       };
       const checkUser: User[] | undefined = await UserService.retrieve(newUser);
-      if (checkUser) {
+      if (checkUser[0]) {
         res.status(409).json({ error: "User already exists" });
         return;
       }

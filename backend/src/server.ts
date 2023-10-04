@@ -10,7 +10,7 @@ const HOST: string = process.env.HOST || "localhost";
 
 app
   .listen(PORT, HOST, function () {
-    console.log(`Using -${process.env.ENV}- ENV`);
+    console.log(`Using ${process.env.ENV} ENV`);
     console.log(`Server is running on ${HOST}:${PORT}`);
   })
   .on("error", (err: any) => {

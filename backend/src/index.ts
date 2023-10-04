@@ -3,6 +3,7 @@ import cors from "cors";
 import corsConfig from "./configs/corsConfig";
 import Routes from "./routes";
 import cookieParser from "cookie-parser";
+import addressTracker from "./middleware/addressMW";
 
 export default class Server {
   constructor(app: Application) {
@@ -15,5 +16,6 @@ export default class Server {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
+    app.use(addressTracker);
   }
 }
