@@ -6,16 +6,16 @@ import cookieParser from "cookie-parser";
 import addressTracker from "./middleware/addressMW";
 
 export default class Server {
-  constructor(app: Application) {
-    this.config(app);
-    new Routes(app);
-  }
+    constructor(app: Application) {
+        this.config(app);
+        new Routes(app);
+    }
 
-  private config(app: Application): void {
-    app.use(cors(corsConfig()));
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    app.use(cookieParser());
-    app.use(addressTracker);
-  }
+    private config(app: Application): void {
+        app.use(cors(corsConfig()));
+        app.use(express.json());
+        app.use(express.urlencoded({ extended: true }));
+        app.use(cookieParser());
+        app.use(addressTracker);
+    }
 }

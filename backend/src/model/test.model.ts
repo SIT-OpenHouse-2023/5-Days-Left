@@ -1,4 +1,4 @@
 export default interface Test {
-  id?: number;
-  msg?: string;
+    id?: number;
+    msg?: string;
 }
